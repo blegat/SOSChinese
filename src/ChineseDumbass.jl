@@ -1,4 +1,4 @@
-module ChineseDumbass
+module SOSChinese
 
 using Reexport
 @reexport using DynamicPolynomials
@@ -43,4 +43,4 @@ for sym in names(@__MODULE__; all = true)
     @eval export $sym
 end
 
-end # module ChineseDumbass
+end # module SOSChinese

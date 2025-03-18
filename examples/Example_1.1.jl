@@ -1,5 +1,5 @@
 # Example 1.1 of SOS_Dumbass.pdf
-using ChineseDumbass
+using SOSChinese
 lhs = 2 * (a^2 + b^2 + c^2)^2
 rhs = 3 * (a^3 * (b + c) + b^3 * (c + a) + c^3 * (a + b))
 p = lhs - rhs

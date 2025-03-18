@@ -2,7 +2,7 @@
 # https://www.isinj.com/mt-usamo/Olympiad%20Inequalities%20-%20Thomas%20Mildorf%20(2006).pdf
 # Done on 15/03/2025
 
-using ChineseDumbass
+using SOSChinese
 f(a, b) = 4a^2 - a * b + 4b^2
 
 A = f(b, c)
