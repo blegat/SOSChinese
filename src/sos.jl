@@ -1,15 +1,15 @@
 using JuMP, PolyJuMP
 import HiGHS
 
-export sos, sym_sos
+export sos, cyclic_sos
 
-function sym_sos(p)
+function cyclic_sos(p)
     d = maxdegree(p) - 2
     v = [a, b, c]
     model = Model(HiGHS.Optimizer)
     set_silent(model)
     @variable(model, S, Poly(monomials(v, d)))
-    @constraint(model, Σ(S * (a - b)^2) == p)
+    @constraint(model, cyclic_sum(S * (a - b)^2) == p)
     optimize!(model)
     if is_solved_and_feasible(model)
         return value(S)
@@ -28,6 +28,21 @@ function sos(p)
     optimize!(model)
     if is_solved_and_feasible(model)
         return value.(S)
+    else
+        return solution_summary(model)
+    end
+end
+
+function constant_combine(pos, neg)
+    model = Model(HiGHS.Optimizer)
+    set_silent(model)
+    @variable(model, α[eachindex(pos)] >= 0)
+    @variable(model, β[eachindex(neg)] <= 0)
+    @constraint(model, α' * pos + β' * neg == 0)
+    @constraint(model, sum(α) + sum(β) == 1)
+    optimize!(model)
+    if is_solved_and_feasible(model)
+        return value.(α), value.(β)
     else
         return solution_summary(model)
     end
