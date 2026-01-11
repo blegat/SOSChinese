@@ -5,8 +5,17 @@ rhs = (a + b + c) * (a^2 + b^2 + c^2) / (a*b*c)
 frac = lhs * lhs - rhs
 d, r = divrem(frac.num, a * b * c)
 p = convert(polynomial_type(a, Int), d)
-triangle(p)
-# sum_c a^4 (b - c)^2 +
-# schur 3 with ab, bc, ca
-triangle(p - 2cyclic_sum(a * b * (a * b - b * c) * (a * b - a * c)))
-triangle(a^3 * (b - c)^2)
+
+triangle(2schur(1))
+triangle(2schur(1) * a * b * c)
+
+triangle(p - 2rotate(schur(1)))
+pmean(p - 2rotate(schur(1)))
+
+triangle(rotate(schur(1)))
+triangle(p - 2rotate(schur(1)))
+triangle(a * (b - c)^2)
+triangle(a^2 * (b - c)^2)
+triangle(cyclic_sum(a^3 * (b - c)^2))
+
+p - cyclic_sum(a^4 * (b - c)^2) - 2rotate(schur(1))
